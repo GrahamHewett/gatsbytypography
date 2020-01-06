@@ -1,49 +1,34 @@
 import React from "react"
-import { css } from "@emotion/core"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { rhythm } from "../utils/typography"
+import logo from '../../static/svgs/frisbee.svg'
+
 export default ({ children }) => {
-  const data = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-          }
-        }
-      }
-    `
+  const data = useStaticQuery(graphql`
+    query { site { siteMetadata { title } } }`
   )
+
+  const Nav = () => (
+    <header style={{display: 'flex', justifyContent: 'space-between'}}>
+      <img src={logo} alt='frisbee dog'></img><Link to={`/`}><h3>Logo of {data.site.siteMetadata.title}</h3></Link>
+      <nav style={{display: 'flex', justifyContent: 'space-between', flex: 1}}>
+        <Link to={`/about/`}>Syllabus</Link>
+        <Link to={`/about/`}>FAQ</Link>
+        <Link to={`/about/`}>Payment</Link>
+      </nav>
+    </header>
+  )
+
+  const Footer = () => (
+    <footer>
+
+    </footer>
+  )
+
   return (
-    <div
-    css={css`
-      margin: 0 auto;
-      max-width: 80vw;
-      padding: ${rhythm(2)};
-      padding-top: ${rhythm(1.5)};
-    `}
-  >
-    <Link to={`/`}>
-      <h3
-        css={css`
-          margin-bottom: ${rhythm(2)};
-          display: inline-block;
-          font-style: normal;
-        `}
-      >
-          {data.site.siteMetadata.title}
-      </h3>
-    </Link>
-    <Link
-      to={`/about/`}
-      css={css`
-        float: right;
-      `}
-    >
-      About
-    </Link>
-    
+  <div>
+    <Nav />
     {children}
+    <Footer />
   </div>
   )
 }
